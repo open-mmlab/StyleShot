@@ -22,8 +22,8 @@ We present StyleShot, a generalized plug-to-play style transfer method, capable 
 ![arch](assets/framework.png)
 
 ## News
-- [2024/7/2] 🔥 We release the p[paper](https://arxiv.org/abs/2407.01414).
-- [2024/7/1] 🔥 We release the code, c[checkpoint](https://huggingface.co/Gaojunyao/StyleShot), [project page](https://styleshot.github.io/) and [online demo](https://openxlab.org.cn/apps/detail/lianchen/StyleShot).
+- [2024/7/2] 🔥 We release the [paper](https://arxiv.org/abs/2407.01414).
+- [2024/7/1] 🔥 We release the code, [checkpoint](https://huggingface.co/Gaojunyao/StyleShot), [project page](https://styleshot.github.io/) and [online demo](https://openxlab.org.cn/apps/detail/lianchen/StyleShot).
 
 ## Start
 
