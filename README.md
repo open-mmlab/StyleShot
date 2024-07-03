@@ -61,7 +61,7 @@ For inference, you should download the pretrained weight and prepare your own re
 python styleshot_text_driven_demo.py --style "{style_image_path}" --prompt "{prompt}" --output "{save_path}"
 
 # run image-driven style transfer demo
-python styleshot_image_driven_demo.py --style "{style_image_path}"  --content "{content_image_path}" --prompt "{prompt}" --output "{save_path}"
+python styleshot_image_driven_demo.py --style "{style_image_path}"  --content "{content_image_path}" --preprocessor "Contour" --prompt "{prompt}" --output "{save_path}"
 
 # integrate styleshot with controlnet and t2i-adapter
 python styleshot_t2i-adapter_demo.py --style "{style_image_path}"  --condition "{condtion_image_path}" --prompt "{prompt}" --output "{save_path}"

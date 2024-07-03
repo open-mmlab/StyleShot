@@ -3,6 +3,7 @@ from types import MethodType
 import torch
 import cv2
 from annotator.hed import SOFT_HEDdetector
+from annotator.lineart import LineartDetector
 from diffusers import UNet2DConditionModel, ControlNetModel
 from transformers import CLIPVisionModelWithProjection
 from PIL import Image
@@ -23,8 +24,13 @@ def main(args):
     
     pipe = StyleContentStableDiffusionControlNetPipeline.from_pretrained(base_model_path, controlnet=content_retention_encoder)
     styleshot = StyleShot(device, pipe, ip_ckpt, style_aware_encoder_path, transformer_block_path)
-    detector = SOFT_HEDdetector()
-    
+    if args.preprocessor == "Lineart":
+        detector = LineartDetector()
+    elif args.preprocessor == "Contour":
+        detector = SOFT_HEDdetector()
+    else:
+        raise ValueError("Invalid preprocessor")
+
     style_image = Image.open(args.style)
     # processing content image
     content_image = cv2.imread(args.content)
@@ -40,6 +46,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--style", type=str, default="style.png")
     parser.add_argument("--content", type=str, default="content.png")
+    parser.add_argument("--preprocessor", type=str, default="Contour", choices=["Contour", "Lineart"])
     parser.add_argument("--prompt", type=str, default="text prompt")
     parser.add_argument("--output", type=str, default="output.png")
     args = parser.parse_args()
