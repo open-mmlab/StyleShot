@@ -65,7 +65,7 @@ class MyDataset(torch.utils.data.Dataset):
 
     def load_data(self, item):
         try:
-            text = item["prompt"]
+            text = item["content_prompt"]
         except Exception as e:
             print(e)
             text = ""
