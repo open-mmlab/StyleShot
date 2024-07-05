@@ -9,6 +9,7 @@ from annotator.hed import SOFT_HEDdetector
 from annotator.lineart import LineartDetector
 from diffusers import UNet2DConditionModel, ControlNetModel
 from transformers import CLIPVisionModelWithProjection
+from huggingface_hub import snapshot_download
 from PIL import Image
 from ip_adapter import StyleShot, StyleContentStableDiffusionControlNetPipeline
 
@@ -18,29 +19,42 @@ contour_detector = SOFT_HEDdetector()
 lineart_detector = LineartDetector()
 
 base_model_path = "runwayml/stable-diffusion-v1-5"
+transformer_block_path = "laion/CLIP-ViT-H-14-laion2B-s32B-b79K"
+styleshot_model_path = "Gaojunyao/StyleShot"
+styleshot_lineart_model_path = "Gaojunyao/StyleShot_lineart"
+
+if not os.path.isdir(base_model_path):
+    base_model_path = snapshot_download(base_model_path, local_dir=base_model_path)
+    print(f"Downloaded model to {base_model_path}")
+if not os.path.isdir(transformer_block_path):
+    transformer_block_path = snapshot_download(transformer_block_path, local_dir=transformer_block_path)
+    print(f"Downloaded model to {transformer_block_path}")
+if not os.path.isdir(styleshot_model_path):
+    styleshot_model_path = snapshot_download(styleshot_model_path, local_dir=styleshot_model_path)
+    print(f"Downloaded model to {styleshot_model_path}")
+if not os.path.isdir(styleshot_lineart_model_path):
+    styleshot_lineart_model_path = snapshot_download(styleshot_lineart_model_path, local_dir=styleshot_lineart_model_path)
+    print(f"Downloaded model to {styleshot_lineart_model_path}")
+
     
 # weights for ip-adapter and our content-fusion encoder
-contour_ip_ckpt = "Gaojunyao/StyleShot/pretrained_weight/ip.bin"
-contour_style_aware_encoder_path = "Gaojunyao/StyleShot/pretrained_weight/style_aware_encoder.bin"
-contour_transformer_block_path = "laion/CLIP-ViT-H-14-laion2B-s32B-b79K"
+contour_ip_ckpt = os.path.join(styleshot_model_path, "pretrained_weight/ip.bin")
+contour_style_aware_encoder_path = os.path.join(styleshot_model_path, "pretrained_weight/style_aware_encoder.bin")
+contour_transformer_block_path = transformer_block_path
 contour_unet = UNet2DConditionModel.from_pretrained(base_model_path, subfolder="unet")
 contour_content_fusion_encoder = ControlNetModel.from_unet(contour_unet)
 
 contour_pipe = StyleContentStableDiffusionControlNetPipeline.from_pretrained(base_model_path, controlnet=contour_content_fusion_encoder)
 contour_styleshot = StyleShot(device, contour_pipe, contour_ip_ckpt, contour_style_aware_encoder_path, contour_transformer_block_path)
 
-lineart_ip_ckpt = "Gaojunyao/StyleShot_lineart/pretrained_weight/ip.bin"
-lineart_style_aware_encoder_path = "Gaojunyao/StyleShot_lineart/pretrained_weight/style_aware_encoder.bin"
-lineart_transformer_block_path = "laion/CLIP-ViT-H-14-laion2B-s32B-b79K"
+lineart_ip_ckpt = os.path.join(styleshot_lineart_model_path, "pretrained_weight/ip.bin")
+lineart_style_aware_encoder_path = os.path.join(styleshot_lineart_model_path, "pretrained_weight/style_aware_encoder.bin")
+lineart_transformer_block_path = transformer_block_path
 lineart_unet = UNet2DConditionModel.from_pretrained(base_model_path, subfolder="unet")
 lineart_content_fusion_encoder = ControlNetModel.from_unet(lineart_unet)
 
 lineart_pipe = StyleContentStableDiffusionControlNetPipeline.from_pretrained(base_model_path, controlnet=lineart_content_fusion_encoder)
 lineart_styleshot = StyleShot(device, lineart_pipe, lineart_ip_ckpt, lineart_style_aware_encoder_path, lineart_transformer_block_path)
-
-
-
-
 
 def process(style_image, content_image, prompt, num_samples, image_resolution, condition_scale, style_scale,ddim_steps, guidance_scale, seed, a_prompt, n_prompt, btn1, Contour_Threshold=200):
     weight_dtype = torch.float32
@@ -180,4 +194,4 @@ with block:
     run_button.click(fn=process, inputs=ips, outputs=[image_gallery, contour_gallery, line_image_gallery, line_gallery])
 
 
-block.launch()
+block.launch(server_name='0.0.0.0')

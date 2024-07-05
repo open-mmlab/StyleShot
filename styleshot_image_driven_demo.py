@@ -1,3 +1,4 @@
+import os
 from types import MethodType
 
 import torch
@@ -7,29 +8,45 @@ from annotator.lineart import LineartDetector
 from diffusers import UNet2DConditionModel, ControlNetModel
 from transformers import CLIPVisionModelWithProjection
 from PIL import Image
+from huggingface_hub import snapshot_download
 from ip_adapter import StyleShot, StyleContentStableDiffusionControlNetPipeline
 import argparse
 
 def main(args):
     base_model_path = "runwayml/stable-diffusion-v1-5"
-    
-    # weights for ip-adapter and our content-fusion encoder
-    ip_ckpt = "./pretrained_weight/ip.bin"
-    style_aware_encoder_path = "./pretrained_weight/style_aware_encoder.bin"
     transformer_block_path = "laion/CLIP-ViT-H-14-laion2B-s32B-b79K"
+    
+    device = "cuda"
+
+    if args.preprocessor == "Lineart":
+        detector = LineartDetector()
+        styleshot_model_path = "Gaojunyao/StyleShot_lineart"
+    elif args.preprocessor == "Contour":
+        detector = SOFT_HEDdetector()
+        styleshot_model_path = "Gaojunyao/StyleShot"
+    else:
+        raise ValueError("Invalid preprocessor")
+
+    if not os.path.isdir(styleshot_model_path):
+        styleshot_lineart_model_path = snapshot_download(styleshot_model_path, local_dir=styleshot_model_path)
+        print(f"Downloaded model to {styleshot_model_path}")
+
+    # weights for ip-adapter and our content-fusion encoder
+    if not os.path.isdir(base_model_path):
+        base_model_path = snapshot_download(base_model_path, local_dir=base_model_path)
+        print(f"Downloaded model to {base_model_path}")
+    if not os.path.isdir(transformer_block_path):
+        transformer_block_path = snapshot_download(transformer_block_path, local_dir=transformer_block_path)
+        print(f"Downloaded model to {transformer_block_path}")
+
+    ip_ckpt = os.path.join(styleshot_model_path, "pretrained_weight/ip.bin")
+    style_aware_encoder_path = os.path.join(styleshot_model_path, "pretrained_weight/style_aware_encoder.bin")
+
     unet = UNet2DConditionModel.from_pretrained(base_model_path, subfolder="unet")
     content_fusion_encoder = ControlNetModel.from_unet(unet)
     
-    device = "cuda"
-    
     pipe = StyleContentStableDiffusionControlNetPipeline.from_pretrained(base_model_path, controlnet=content_fusion_encoder)
     styleshot = StyleShot(device, pipe, ip_ckpt, style_aware_encoder_path, transformer_block_path)
-    if args.preprocessor == "Lineart":
-        detector = LineartDetector()
-    elif args.preprocessor == "Contour":
-        detector = SOFT_HEDdetector()
-    else:
-        raise ValueError("Invalid preprocessor")
 
     style_image = Image.open(args.style)
     # processing content image
@@ -51,4 +68,3 @@ if __name__ == "__main__":
     parser.add_argument("--output", type=str, default="output.png")
     args = parser.parse_args()
     main(args)
-
