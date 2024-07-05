@@ -8,4 +8,5 @@ accelerate==0.21.0
 opencv-python==4.8.1.78
 einops==0.7.0
 botocore==1.34.68
+gradio==3.41.2
 basicsr

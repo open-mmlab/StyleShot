@@ -28,7 +28,7 @@ def main(args):
         raise ValueError("Invalid preprocessor")
 
     if not os.path.isdir(styleshot_model_path):
-        styleshot_lineart_model_path = snapshot_download(styleshot_model_path, local_dir=styleshot_model_path)
+        styleshot_model_path = snapshot_download(styleshot_model_path, local_dir=styleshot_model_path)
         print(f"Downloaded model to {styleshot_model_path}")
 
     # weights for ip-adapter and our content-fusion encoder

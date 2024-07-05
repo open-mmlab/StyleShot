@@ -90,7 +90,7 @@ class SOFT_HEDdetector:
         self.netNetwork = ControlNetHED_Apache2().float().cuda().eval()
         self.netNetwork.load_state_dict(torch.load(modelpath))
 
-    def __call__(self, input_image, safe=False):
+    def __call__(self, input_image, safe=False, threshold=200):
         assert input_image.ndim == 3
         H, W, C = input_image.shape
         with torch.no_grad():
@@ -106,7 +106,7 @@ class SOFT_HEDdetector:
             edge = (edge * 255.0).clip(0, 255).astype(np.uint8)
 
             content_image = edge
-            content_image[content_image > 200] = 255
+            content_image[content_image > threshold] = 255
             content_image[content_image < 255] = 0
             kernel = np.ones((3,3), np.uint8)
 
