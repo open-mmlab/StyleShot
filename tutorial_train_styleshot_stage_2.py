@@ -190,11 +190,11 @@ def collate_fn(data):
 class IPAdapter(torch.nn.Module):
     """IP-Adapter"""
 
-    def __init__(self, unet, style_image_proj_modules, content_retention_encoder, adapter_modules, ckpt_path=None):
+    def __init__(self, unet, style_image_proj_modules, content_fusion_encoder, adapter_modules, ckpt_path=None):
         super().__init__()
         self.num_tokens = 6
         self.unet = unet
-        self.controlnet = content_retention_encoder
+        self.controlnet = content_fusion_encoder
         self.style_image_proj_modules = style_image_proj_modules
         self.adapter_modules = adapter_modules
         if ckpt_path is not None:

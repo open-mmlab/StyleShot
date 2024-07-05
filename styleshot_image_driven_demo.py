@@ -13,16 +13,16 @@ import argparse
 def main(args):
     base_model_path = "runwayml/stable-diffusion-v1-5"
     
-    # weights for ip-adapter and our content-retention encoder
+    # weights for ip-adapter and our content-fusion encoder
     ip_ckpt = "./pretrained_weight/ip.bin"
     style_aware_encoder_path = "./pretrained_weight/style_aware_encoder.bin"
     transformer_block_path = "laion/CLIP-ViT-H-14-laion2B-s32B-b79K"
     unet = UNet2DConditionModel.from_pretrained(base_model_path, subfolder="unet")
-    content_retention_encoder = ControlNetModel.from_unet(unet)
+    content_fusion_encoder = ControlNetModel.from_unet(unet)
     
     device = "cuda"
     
-    pipe = StyleContentStableDiffusionControlNetPipeline.from_pretrained(base_model_path, controlnet=content_retention_encoder)
+    pipe = StyleContentStableDiffusionControlNetPipeline.from_pretrained(base_model_path, controlnet=content_fusion_encoder)
     styleshot = StyleShot(device, pipe, ip_ckpt, style_aware_encoder_path, transformer_block_path)
     if args.preprocessor == "Lineart":
         detector = LineartDetector()
