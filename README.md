@@ -6,6 +6,9 @@
  <a href='https://styleshot.github.io/'><img src='https://img.shields.io/badge/Project-Page-Green'></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <a href='https://openxlab.org.cn/apps/detail/lianchen/StyleShot'><img src='https://cdn-static.openxlab.org.cn/app-center/openxlab_app.svg'></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <a href='https://huggingface.co/Gaojunyao/StyleShot'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue'></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a target="_blank" href="https://huggingface.co/spaces/nowsyn/StyleShot">
+  <img src="https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-sm.svg" alt="Online Demo in HF"/>
+</a>
 
 _**[Junyao Gao](https://jeoyal.github.io/home/), Yanchen Liu, [Yanan Sun](https://scholar.google.com/citations?hl=zh-CN&user=6TA1oPkAAAAJ)<sup>&Dagger;</sup>, Yinhao Tang, [Yanhong Zeng](https://zengyh1900.github.io/), [Kai Chen*](https://chenkai.site/), [Cairong Zhao*](https://vill-lab.github.io/)**_
 <br><br>
@@ -25,6 +28,7 @@ We highlight that, our approach, named StyleShot, is simple yet effective in mim
 ![arch](assets/teasers.png)
 
 ## News
+- [2024/7/5] 🔥 We release [online demo](https://huggingface.co/spaces/nowsyn/StyleShot) in HuggingFace.
 - [2024/7/3] 🔥 We release [StyleShot_lineart](https://huggingface.co/Gaojunyao/StyleShot_lineart), a version taking the lineart of content image as control.
 - [2024/7/2] 🔥 We release the [paper](https://arxiv.org/abs/2407.01414).
 - [2024/7/1] 🔥 We release the code, [checkpoint](https://huggingface.co/Gaojunyao/StyleShot), [project page](https://styleshot.github.io/) and [online demo](https://openxlab.org.cn/apps/detail/lianchen/StyleShot).
