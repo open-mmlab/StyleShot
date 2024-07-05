@@ -15,11 +15,14 @@ From Tongji University and Shanghai AI lab.
 
 </div>
 
-## Introduction
+## Abstract
 
-We present StyleShot, a generalized plug-to-play style transfer method, capable of generating the high-quality stylized images that match the desired style from any reference image without test-time style-tuning. To the best of our knowledge, StyleShot is the first work to designate a style-aware encoder based on Stable Diffusion and a content-fusion encoder for better style and content integration, achieving the state-of-the-art text and image-driven style transfer performance compared to existing methods.
-
-![arch](assets/framework.png)
+In this paper, we show that, a good style representation is crucial and sufficient for generalized style transfer without test-time tuning.
+We achieve this through constructing a style-aware encoder and a well-organized style dataset called StyleGallery.
+With dedicated design for style learning, this style-aware encoder is trained to extract expressive style representation with decoupling training strategy, and StyleGallery enables the generalization ability.
+We further employ a content-fusion encoder to enhance image-driven style transfer.
+We highlight that, our approach, named StyleShot, is simple yet effective in mimicking various desired styles, i.e., 3D, flat, abstract or even fine-grained styles, without test-time tuning. Rigorous experiments validate that, StyleShot achieves superior performance across a wide range of styles compared to existing state-of-the-art methods.
+![arch](assets/teasers.png)
 
 ## News
 - [2024/7/3] 🔥 We release [StyleShot_lineart](https://huggingface.co/Gaojunyao/StyleShot_lineart), a version taking the lineart of content image as control.

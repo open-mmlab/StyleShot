@@ -1,21 +1,40 @@
+import os
 from types import MethodType
 
 import torch
 from diffusers import StableDiffusionAdapterPipeline, T2IAdapter
 from transformers import CLIPVisionModelWithProjection
 from PIL import Image
+from huggingface_hub import snapshot_download
 from ip_adapter import StyleShot
 import argparse
 
 def main(args):
     base_model_path = "runwayml/stable-diffusion-v1-5"
-    ip_ckpt = "./pretrained_weight/ip.bin"
-    style_aware_encoder_path = "./pretrained_weight/style_aware_encoder.bin"
     transformer_block_path = "laion/CLIP-ViT-H-14-laion2B-s32B-b79K"
+    styleshot_model_path = "Gaojunyao/StyleShot"
     adapter_model_path = "TencentARC/t2iadapter_depth_sd15v2"
     adapter = T2IAdapter.from_pretrained(adapter_model_path, torch_dtype=torch.float16)
     
     device = "cuda"
+
+    if not os.path.isdir(base_model_path):
+        base_model_path = snapshot_download(base_model_path, local_dir=base_model_path)
+        print(f"Downloaded model to {base_model_path}")
+    if not os.path.isdir(transformer_block_path):
+        transformer_block_path = snapshot_download(transformer_block_path, local_dir=transformer_block_path)
+        print(f"Downloaded model to {transformer_block_path}")
+    if not os.path.isdir(styleshot_model_path):
+        styleshot_model_path = snapshot_download(styleshot_model_path, local_dir=styleshot_model_path)
+        print(f"Downloaded model to {styleshot_model_path}")
+    if not os.path.isdir(adapter_model_path):
+        adapter_model_path = snapshot_download(adapter_model_path, local_dir=adapter_model_path)
+        print(f"Downloaded model to {adapter_model_path}")
+
+    adapter = T2IAdapter.from_pretrained(adapter_model_path, torch_dtype=torch.float16)
+    ip_ckpt = os.path.join(styleshot_model_path, "pretrained_weight/ip.bin")
+    style_aware_encoder_path = os.path.join(styleshot_model_path, "pretrained_weight/style_aware_encoder.bin")
+
     
     pipe = StableDiffusionAdapterPipeline.from_pretrained(base_model_path, adapter=adapter)
     
