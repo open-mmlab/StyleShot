@@ -10,9 +10,7 @@ StyleShot
 ├── assets
 ├── ip_adapter
 ├── json_files
-│   ├── aesthetics_plus_all_group_canny_all_content.jsonl
-│   ├── wikiart_with_caption.jsonl
-│   ├── train_anno_realease_repath_content_prompt.jsonl
+│   ├── stylegallery.jsonl
 ├── data
 │   ├── JourneyDB
 │   │   ├── data
@@ -225,3 +223,11 @@ content_input = detector(img)
 ## Json file download
 
 We have uploaded our JSON files to the following <a href='https://drive.google.com/drive/folders/10T3t58rQKDmYOLschUYj0tzm6zuOngMd?usp=drive_link'>URL</a>. You can directly download them.
+Our JSON file, stylegallery.jsonl, consolidates JSON files from JourneyDB, MultiGen-20M, and WikiArt into a uniform format:
+
+```shell
+{"image_file": "", "content_prompt": "", ...}
+{"image_file": "", "content_prompt": "", ...}
+{"image_file": "", "content_prompt": "", ...}
+...
+```
