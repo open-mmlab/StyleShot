@@ -125,7 +125,7 @@ accelerate launch --num_processes 8 --multi_gpu --mixed_precision "fp16" \
 
 ## StyleGallery<a name="style_gallery"></a>
 We have carefully curated a style-balanced dataset, called **StyleGallery**, with extensive diverse image styles drawn from publicly available datasets for training our StyleShot. 
-To prepare our dataset StyleGallery, please refer to [tutorial](DATASET.md).
+To prepare our dataset StyleGallery, please refer to [tutorial](DATASET.md), or download json file from [here](https://drive.google.com/drive/folders/10T3t58rQKDmYOLschUYj0tzm6zuOngMd?usp=drive_link).
 
 ## StyleBench
 To address the lack of a benchmark in reference-based stylized generation, we establish a <a href='https://drive.google.com/file/d/1I-Zv5blsrJsckXrvcP_f8TJ4gy6xrwCA/view?usp=drive_link'>style evaluation benchmark</a> containing 73 distinct styles across 490 reference images.
