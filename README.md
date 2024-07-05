@@ -44,8 +44,7 @@ pip install -r requirements.txt
 # download the models
 git lfs install
 git clone https://huggingface.co/Gaojunyao/StyleShot
-mv StyleShot/pretrained_weight pretrained_weight
-rm -r StyleShot
+git clone https://huggingface.co/Gaojunyao/StyleShot_lineart
 ```
 
 ## Models

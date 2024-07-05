@@ -56,6 +56,7 @@ lineart_content_fusion_encoder = ControlNetModel.from_unet(lineart_unet)
 lineart_pipe = StyleContentStableDiffusionControlNetPipeline.from_pretrained(base_model_path, controlnet=lineart_content_fusion_encoder)
 lineart_styleshot = StyleShot(device, lineart_pipe, lineart_ip_ckpt, lineart_style_aware_encoder_path, lineart_transformer_block_path)
 
+
 def process(style_image, content_image, prompt, num_samples, image_resolution, condition_scale, style_scale,ddim_steps, guidance_scale, seed, a_prompt, n_prompt, btn1, Contour_Threshold=200):
     weight_dtype = torch.float32
 
@@ -140,7 +141,7 @@ with block:
         with gr.Column():
             style_image = gr.Image(sources=['upload'], type="numpy", label='Style Image')
         with gr.Column():
-            with gr.Box():
+            with gr.Blocks():
                 with gr.Column():
                     content_image = gr.Image(sources=['upload'], type="numpy", label='Content Image (optional)')
                     btn1 = gr.Radio(
@@ -174,16 +175,18 @@ with block:
                                       value='longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality')
         
     with gr.Row():
-        with gr.Box():
-            gr.Markdown("### Results for Contour")
+        gr.Markdown("### Results for Contour")
+    with gr.Row():
+        with gr.Blocks():
             with gr.Row():
                 with gr.Column(scale = 1):
                     contour_gallery = gr.Gallery(label='Contour Output', show_label=True, elem_id="gallery", columns=[1], rows=[1], height='auto')
                 with gr.Column(scale = 4):
                     image_gallery = gr.Gallery(label='Result for Contour', show_label=True, elem_id="gallery", columns=[4], rows=[1], height='auto')
     with gr.Row():
-        with gr.Box():
-            gr.Markdown("### Results for Lineart")
+        gr.Markdown("### Results for Lineart")
+    with gr.Row():
+        with gr.Blocks():
             with gr.Row():
                 with gr.Column(scale = 1):
                     line_gallery = gr.Gallery(label='Lineart Output', show_label=True, elem_id="gallery", columns=[1], rows=[1], height='auto')
