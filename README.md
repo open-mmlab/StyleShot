@@ -28,6 +28,7 @@ We highlight that, our approach, named StyleShot, is simple yet effective in mim
 ![arch](assets/teasers.png)
 
 ## News
+- [2024/8/28] 🔥 Thanks @AIFSH for the contribution.StyleShot is now available on [ComfyUI](https://github.com/AIFSH/StyleShot-ComfyUI).
 - [2024/7/5] 🔥 We release [online demo](https://huggingface.co/spaces/nowsyn/StyleShot) in HuggingFace.
 - [2024/7/3] 🔥 We release [StyleShot_lineart](https://huggingface.co/Gaojunyao/StyleShot_lineart), a version taking the lineart of content image as control.
 - [2024/7/2] 🔥 We release the [paper](https://arxiv.org/abs/2407.01414).
