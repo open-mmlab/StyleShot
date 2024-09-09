@@ -140,7 +140,7 @@ To address the lack of a benchmark in reference-based stylized generation, we es
 
 ## Disclaimer
 
-We develop this repository for RESEARCH purposes, so it can only be used for personal/research/non-commercial purposes.
+This project strives to positively impact the domain of AI-driven image generation. Users are granted the freedom to create images using this tool, but they are expected to comply with local laws and utilize it in a responsible manner. **The developers do not assume any responsibility for potential misuse by users.**
 
 
 ## Citation
