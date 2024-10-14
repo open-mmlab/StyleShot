@@ -147,9 +147,9 @@ This project strives to positively impact the domain of AI-driven image generati
 If you find StyleShot useful for your research and applications, please cite using this BibTeX:
 ```bibtex
 @article{gao2024styleshot,
-  title={StyleShot: A Snapshot on Any Style},
-  author={Junyao, Gao and Yanchen, Liu and Yanan, Sun and Yinhao, Tang and Yanhong, Zeng and Kai, Chen and Cairong, Zhao},
-  booktitle={arXiv preprint arxiv:2407.01414},
+  title={Styleshot: A snapshot on any style},
+  author={Gao, Junyao and Liu, Yanchen and Sun, Yanan and Tang, Yinhao and Zeng, Yanhong and Chen, Kai and Zhao, Cairong},
+  journal={arXiv preprint arXiv:2407.01414},
   year={2024}
 }
 ```
