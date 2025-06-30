@@ -38,7 +38,7 @@ We highlight that, our approach, named StyleShot, is simple yet effective in mim
 
 ```
 # install styleshot
-git clone https://github.com/Jeoyal/StyleShot.git
+git clone https://github.com/open-mmlab/StyleShot.git
 cd StyleShot
 
 # create conda env
